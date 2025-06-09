@@ -1,7 +1,7 @@
 <div class="p-6 bg-gradient-to-br from-blue-50 via-white to-blue-100 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900 min-h-screen">
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-2xl font-extrabold text-blue-800 dark:text-blue-200 tracking-tight">Kelola Pengguna (Staff)</h2>
-        <a href="{{ route('staff.create') }}"
+        <a wire:navigate href="{{ route('staff.create') }}"
            class="bg-gradient-to-r from-blue-600 to-blue-400 text-white px-5 py-2 rounded-lg shadow hover:from-blue-700 hover:to-blue-500 transition font-semibold flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>

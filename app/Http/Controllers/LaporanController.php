@@ -66,13 +66,15 @@ class LaporanController extends Controller
 
         // Ambil detail penjualan (kopi apa & jumlah)
         $detailPenjualan = PenjualanHarian::with('menu')
-            ->whereBetween('tanggal', [$start, $end])
-            ->get();
+            ->orderBy('tanggal')
+            ->get()
+            ->groupBy('tanggal'); // tanpa ->count() atau ->exists()
 
         // Ambil detail pengeluaran (bahan baku & jumlah)
         $detailPengeluaran = Pengeluaran::with('bahanBaku')
-            ->whereBetween('tanggal', [$start, $end])
-            ->get();
+            ->orderBy('tanggal')
+            ->get()
+            ->groupBy('tanggal');
 
         $pdf = Pdf::loadView('livewire.laporan.cetak', [
             'totalPemasukan'     => $totalPemasukan,

@@ -26,28 +26,36 @@
 
             <!-- Menu Section -->
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
+                <flux:navlist.group :heading="__('Platform')" class="grid gap-3 mt-4 mb-6">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:navlist.item>
-                    <flux:navlist.item icon="users" :href="route('staff.index')" :current="request()->routeIs('staff.index')" wire:navigate>
-                        {{ __('Staff') }}
-                    </flux:navlist.item>
-                    <flux:navlist.item icon="list-bullet" :href="route('menu.index')" :current="request()->routeIs('menu.*')" wire:navigate>
-                        {{ __('Menu') }}
-                    </flux:navlist.item>
-                    <flux:navlist.item icon="archive-box" :href="route('bahan-baku.index')" :current="request()->routeIs('bahan-baku.*')" wire:navigate>
-                        {{ __('Bahan Baku') }}
-                    </flux:navlist.item>
-                    <flux:navlist.item icon="chart-bar" :href="route('penjualan.index')" :current="request()->routeIs('penjualan.*')" wire:navigate>
-                        {{ __('Penjualan') }}
-                    </flux:navlist.item>
-                    <flux:navlist.item icon="banknotes" :href="route('pengeluaran.index')" :current="request()->routeIs('pengeluaran.*')" wire:navigate>
-                        {{ __('Pengeluaran') }}
-                    </flux:navlist.item>
-                    <flux:navlist.item icon="clipboard-document-list" :href="route('laporan.index')" :current="request()->routeIs('laporan.*')" wire:navigate>
-                        {{ __('Laporan') }}
-                    </flux:navlist.item>
+
+                     @if(auth()->user() && (auth()->user()->role == 'admin' || auth()->user()->role == 'staff'))
+                        <flux:navlist.item icon="chart-bar" :href="route('penjualan.index')" :current="request()->routeIs('penjualan.*')" wire:navigate>
+                            {{ __('Penjualan') }}
+                        </flux:navlist.item>    
+                        <flux:navlist.item icon="banknotes" :href="route('pengeluaran.index')" :current="request()->routeIs('pengeluaran.*')" wire:navigate>
+                            {{ __('Pengeluaran') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item icon="archive-box" :href="route('bahan-baku.index')" :current="request()->routeIs('bahan-baku.*')" wire:navigate>
+                            {{ __('Bahan Baku') }}
+                        </flux:navlist.item>
+                    @endif
+
+                    @if(auth()->user() && auth()->user()->role == 'admin')
+                        <flux:navlist.item icon="users" :href="route('staff.index')" :current="request()->routeIs('staff.index')" wire:navigate>
+                            {{ __('Staff') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item icon="list-bullet" :href="route('menu.index')" :current="request()->routeIs('menu.*')" wire:navigate>
+                            {{ __('Menu') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item icon="clipboard-document-list" :href="route('laporan.index')" :current="request()->routeIs('laporan.*')" wire:navigate>
+                            {{ __('Laporan') }}
+                        </flux:navlist.item>
+                    @endif
+
+                   
                 </flux:navlist.group>
             </flux:navlist>
 

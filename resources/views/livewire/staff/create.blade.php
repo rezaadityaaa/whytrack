@@ -1,44 +1,54 @@
-<div class="p-6">
-    <h2 class="text-xl font-bold mb-4">Tambah Staff Baru</h2>
 
-    <form action="{{ route('staff.store') }}" method="POST" class="space-y-4">
-        @csrf
+   
+        <div class="p-6 max-w-lg mx-auto">
+            <div class="bg-white dark:bg-zinc-800 rounded-2xl shadow-xl p-8 border border-blue-100 dark:border-blue-700">
+                <h2 class="text-2xl font-extrabold mb-6 text-blue-700 dark:text-blue-200 text-center flex items-center justify-center gap-2">
+                    <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
+                    Tambah Staff Baru
+                </h2>
+                <form action="{{ route('staff.store') }}" method="POST" class="space-y-5">
+                    @csrf
 
-        <div>
-            <label for="name" class="block text-sm font-medium">Nama</label>
-            <input type="text" name="name" id="name" required
-                   class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
-                   value="{{ old('name') }}">
-            @error('name') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                    <div>
+                        <label for="name" class="block text-sm font-semibold mb-1 text-blue-900 dark:text-blue-100">Nama</label>
+                        <input type="text" name="name" id="name" required
+                            class="w-full border border-blue-200 dark:border-blue-700 rounded-lg px-3 py-2 bg-blue-50 dark:bg-zinc-900 text-blue-900 dark:text-blue-100 focus:ring-2 focus:ring-blue-400"
+                            value="{{ old('name') }}">
+                        @error('name') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-semibold mb-1 text-blue-900 dark:text-blue-100">Email</label>
+                        <input type="email" name="email" id="email" required
+                            class="w-full border border-blue-200 dark:border-blue-700 rounded-lg px-3 py-2 bg-blue-50 dark:bg-zinc-900 text-blue-900 dark:text-blue-100 focus:ring-2 focus:ring-blue-400"
+                            value="{{ old('email') }}">
+                        @error('email') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-sm font-semibold mb-1 text-blue-900 dark:text-blue-100">Password</label>
+                        <input type="password" name="password" id="password" required
+                            class="w-full border border-blue-200 dark:border-blue-700 rounded-lg px-3 py-2 bg-blue-50 dark:bg-zinc-900 text-blue-900 dark:text-blue-100 focus:ring-2 focus:ring-blue-400">
+                        @error('password') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
+                        <label for="password_confirmation" class="block text-sm font-semibold mb-1 text-blue-900 dark:text-blue-100">Konfirmasi Password</label>
+                        <input type="password" name="password_confirmation" id="password_confirmation" required
+                            class="w-full border border-blue-200 dark:border-blue-700 rounded-lg px-3 py-2 bg-blue-50 dark:bg-zinc-900 text-blue-900 dark:text-blue-100 focus:ring-2 focus:ring-blue-400">
+                        @error('password_confirmation') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="flex justify-between items-center pt-2">
+                        <button type="submit" class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-400 text-white px-6 py-2 rounded-lg shadow hover:from-blue-700 hover:to-blue-500 transition font-semibold">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Simpan
+                        </button>
+                        <a href="{{ route('staff.index') }}" class="text-gray-600 dark:text-gray-300 hover:underline transition">Batal</a>
+                    </div>
+                </form>
+            </div>
         </div>
 
-        <div>
-            <label for="email" class="block text-sm font-medium">Email</label>
-            <input type="email" name="email" id="email" required
-                   class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
-                   value="{{ old('email') }}">
-            @error('email') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
-        </div>
-
-        <div>
-            <label for="password" class="block text-sm font-medium">Password</label>
-            <input type="password" name="password" id="password" required
-                   class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300">
-            @error('password') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
-        </div>
-
-        <div>
-            <label for="password_confirmation" class="block text-sm font-medium">Konfirmasi Password</label>
-            <input type="password" name="password_confirmation" id="password_confirmation" required
-                   class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300">
-            @error('password_confirmation') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
-        </div>
-
-        <div>
-            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-                Simpan
-            </button>
-            <a href="{{ route('staff.index') }}" class="ml-2 text-gray-600 hover:underline">Batal</a>
-        </div>
-    </form>
-</div>

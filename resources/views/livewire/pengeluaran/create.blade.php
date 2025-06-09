@@ -1,7 +1,10 @@
 <x-layouts.app>
     <div class="p-6 max-w-lg mx-auto">
-        <div class="bg-white dark:bg-zinc-800 rounded-xl shadow-lg p-8">
-            <h2 class="text-2xl font-extrabold mb-6 text-blue-700 dark:text-blue-200 text-center">Input Pengeluaran</h2>
+        <div class="bg-white dark:bg-zinc-800 rounded-2xl shadow-xl p-8 border border-blue-100 dark:border-zinc-700">
+            <h2 class="text-3xl font-extrabold mb-6 text-blue-700 dark:text-blue-200 text-center tracking-tight flex items-center justify-center gap-2">
+                <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 17v-6a2 2 0 012-2h2a2 2 0 012 2v6m-6 0h6"/></svg>
+                Input Pengeluaran
+            </h2>
             <form action="{{ route('pengeluaran.store') }}" method="POST" x-data="{ tipe: 'bahan_baku' }">
                 @csrf
                 <div class="mb-4">
@@ -19,7 +22,7 @@
                 </div>
                 <div class="mb-4" x-show="tipe === 'bahan_baku'">
                     <label for="bahan_baku_id" class="block text-sm font-semibold mb-1 text-blue-900 dark:text-blue-100">Bahan Baku</label>
-                    <select name="bahan_baku_id" id="bahan_baku_id" class="w-full border border-blue-200 dark:border-zinc-700 rounded-lg px-3 py-2 bg-blue-50 dark:bg-zinc-900 text-blue-900 dark:text-blue-100 focus:ring-2 focus:ring-blue-400">
+                    <select name="bahan_baku_id" id="bahan_baku_id" class="w-full border border-blue-200 dark:border-zinc-700 rounded-lg px-3 py-2 bg-white dark:bg-zinc-800 text-blue-900 dark:text-blue-100 focus:ring-2 focus:ring-blue-400">
                         <option value="">-- Pilih Bahan Baku --</option>
                         @foreach($bahanBakus as $bahanBaku)
                             <option value="{{ $bahanBaku->id }}">{{ $bahanBaku->nama }}</option>
@@ -27,19 +30,22 @@
                     </select>
                     @error('bahan_baku_id') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                 </div>
-                <div class="mb-4">
+                <div class="mb-4" x-show="tipe === 'bahan_baku'">
                     <label for="jumlah" class="block text-sm font-semibold mb-1 text-blue-900 dark:text-blue-100">Jumlah</label>
-                    <input type="number" name="jumlah" id="jumlah" min="1" required class="w-full border border-blue-200 dark:border-zinc-700 rounded-lg px-3 py-2 bg-blue-50 dark:bg-zinc-900 text-blue-900 dark:text-blue-100 focus:ring-2 focus:ring-blue-400">
+                    <input type="number" name="jumlah" id="jumlah" min="1" :required="tipe === 'bahan_baku'" class="w-full border border-blue-200 dark:border-zinc-700 rounded-lg px-3 py-2 bg-white dark:bg-zinc-800 text-blue-900 dark:text-blue-100 focus:ring-2 focus:ring-blue-400">
                     @error('jumlah') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
                     <label for="total_biaya" class="block text-sm font-semibold mb-1 text-blue-900 dark:text-blue-100">Total Biaya</label>
-                    <input type="number" name="total_biaya" id="total_biaya" min="0" required class="w-full border border-blue-200 dark:border-zinc-700 rounded-lg px-3 py-2 bg-blue-50 dark:bg-zinc-900 text-blue-900 dark:text-blue-100 focus:ring-2 focus:ring-blue-400">
+                    <div class="relative">
+                        <span class="absolute left-3 top-2.5 text-blue-400">Rp</span>
+                        <input type="number" name="total_biaya" id="total_biaya" min="0" required class="pl-10 w-full border border-blue-200 dark:border-zinc-700 rounded-lg px-3 py-2 bg-blue-50 dark:bg-zinc-900 text-blue-900 dark:text-blue-100 focus:ring-2 focus:ring-blue-400">
+                    </div>
                     @error('total_biaya') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                 </div>
-                <div class="mb-4">
-                    <label for="catatan" class="block text-sm font-semibold mb-1 text-blue-900 dark:text-blue-100">Catatan (Opsional)</label>
-                    <textarea name="catatan" id="catatan" rows="2" class="w-full border border-blue-200 dark:border-zinc-700 rounded-lg px-3 py-2 bg-blue-50 dark:bg-zinc-900 text-blue-900 dark:text-blue-100 focus:ring-2 focus:ring-blue-400"></textarea>
+                <div class="mb-4" x-show="tipe === 'operasional'">
+                    <label for="catatan" class="block text-sm font-semibold mb-1 text-blue-900 dark:text-blue-100">Catatan Operasional</label>
+                    <textarea name="catatan" id="catatan" rows="2" class="w-full border border-blue-200 dark:border-zinc-700 rounded-lg px-3 py-2 bg-white dark:bg-zinc-800 text-blue-900 dark:text-blue-100 focus:ring-2 focus:ring-blue-400" placeholder="Contoh: Listrik, Air, dll"></textarea>
                     @error('catatan') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                 </div>
                 <div class="flex justify-between items-center pt-2">

@@ -28,7 +28,7 @@ class PengeluaranController extends Controller
         $request->validate([
             'tanggal'      => 'required|date',
             'tipe'         => 'required|in:bahan_baku,operasional',
-            'jumlah'       => 'required|integer|min:1',
+            'jumlah'       => $request->tipe === 'bahan_baku' ? 'required|integer|min:1' : 'nullable',
             'total_biaya'  => 'required|integer|min:0',
             'bahan_baku_id'=> 'nullable|exists:bahan_baku,id',
             'catatan'      => 'nullable|string',

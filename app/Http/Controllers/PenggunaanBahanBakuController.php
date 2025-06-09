@@ -18,7 +18,7 @@ class PenggunaanBahanBakuController extends Controller
 
     public function create()
     {
-        $bahanBakus = BahanBaku::all();
+        $bahanBakus = BahanBaku::where('stok', '>', 0)->get();
         return view('livewire.penggunaan-bahan-baku.create', compact('bahanBakus'));
     }
 
@@ -32,6 +32,14 @@ class PenggunaanBahanBakuController extends Controller
             'keterangan'      => 'nullable|string',
         ]);
 
+
+        // Kurangi stok bahan baku
+        $bahanBaku = BahanBaku::find($request->bahan_baku_id);
+        $bahanBaku->decrement('stok', $request->jumlah);
+        if($request->jumlah > $bahanBaku->stok) {
+            return redirect()->back()->withErrors(['jumlah' => 'Jumlah penggunaan melebihi stok yang tersedia.']);
+        }
+
         PenggunaanBahanBaku::create([
             'bahan_baku_id'   => $request->bahan_baku_id,
             'tanggal'         => $request->tanggal,
@@ -41,9 +49,6 @@ class PenggunaanBahanBakuController extends Controller
             'created_by'      => Auth::id(),
         ]);
 
-        // Kurangi stok bahan baku
-        $bahanBaku = BahanBaku::find($request->bahan_baku_id);
-        $bahanBaku->decrement('stok', $request->jumlah);
 
         // Catat ke pergerakan stok (otomatis)
         PergerakanStok::create([
